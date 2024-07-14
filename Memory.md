@@ -6,7 +6,7 @@ The process uses the memory area as workspace and performs the required work.
 
 The kernel has to allocate space in a more dynamic manner. The number of running processes sometimes comes to tens of thousands and amount of memory is usually limited. Therefore, Linux kernel must handle the memory efficiently.
 
-1.2.1 Physical and virtual memory
+## 1.2.1 Physical and virtual memory
 
 From a performance point of view, it is interesting to understand how the Linux kernel maps physical memory into virtual memory on both 32-bit and 64-bit systems.
 
@@ -16,13 +16,13 @@ On 32-bit architectures such as the IA-32, the Linux kernel can directly address
 
 On the other hand, with 64-bit architectures such as x86-64 (also x64), ZONE_NORMAL extends all the way to 64 GB or to 128 GB in the case of IA-64 systems. As you can see, the overhead of mapping memory pages from ZONE_HIGHMEM into ZONE_NORMAL can be eliminated by using a 64-bit architecture.
 
-The Linux Memory Architecture
+## The Linux Memory Architecture
 
 ![image](https://github.com/vishnu-prasadtv/core-linux/assets/175235558/dc807b81-883b-4a82-8a51-96cda3d21e52)
 
 
 
-# Virtual memory addressing layout
+## Virtual memory addressing layout
 
 Figure 1-11 shows the Linux virtual addressing layout for 32-bit and 64-bit architecture.
 
@@ -33,7 +33,7 @@ On the other hand, on 64-bit architecture such as x86_64 and ia64, no such restr
 ![image](https://github.com/vishnu-prasadtv/core-linux/assets/175235558/22f37824-1cdd-45b3-95d6-c88c66b95137)
 
 
-1.2.2 Virtual memory manager
+## 1.2.2 Virtual memory manager
 
 The physical memory architecture of an operating system is usually hidden to the application and the user because operating systems map any memory into virtual memory. If we want to understand the tuning possibilities within the Linux operating system, we have to understand how Linux handles virtual memory. As explained in 1.2.1, “Physical and virtual memory” on page 10, applications do not allocate physical memory, but request a memory map of a certain size at the Linux kernel and in exchange receive a map in virtual memory. As you can see in Figure 1-12, virtual memory does not necessarily have to be mapped into physical memory. If your application allocates a large amount of memory, some of it might be mapped to the swap file on the disk subsystem.
 
@@ -42,7 +42,7 @@ Figure 1-12 shows that applications usually do not write directly to the disk su
 ![image](https://github.com/vishnu-prasadtv/core-linux/assets/175235558/212cc042-caa4-4efe-b27d-7bb03b993445)
 
 
-# The Linux virtual memory manager
+## The Linux virtual memory manager
 
 Closely connected to the way the Linux kernel handles writes to the physical disk subsystem is the way the Linux kernel manages disk cache. While other operating systems allocate only a certain portion of memory as disk cache, Linux handles the memory resource far more efficiently. The default configuration of the virtual memory manager allocates all available free memory space as disk cache. Hence it is not unusual to see productive Linux systems that boast gigabytes of memory but only have 20 MB of that memory free.
 
@@ -63,7 +63,7 @@ When the attempt of pages allocation fails, the page reclaiming is activated. Re
 
 You can find information on the buddy system through /proc/buddyinfo. For details, refer to “Memory used in a zone” on page 47.
 
-# Page frame reclaiming
+## Page frame reclaiming
 
 If pages are not available when a process requests to map a certain amount of pages, the Linux kernel tries to get pages for the new request by releasing certain pages (which were used before but are not used anymore and are still marked as active pages based on certain principles) and allocating the memory to a new process. This process is called page reclaiming. kswapd kernel thread and try_to_free_page() kernel function are responsible for page reclaiming.
 
