@@ -1,13 +1,16 @@
 
 # 1.2 Linux memory architecture
 
-To execute a process, the Linux kernel allocates a portion of the memory area to the requesting process. The process uses the memory area as workspace and performs the required work. It is similar to you having your own desk allocated and then using the desktop to scatter papers, documents and memos to perform your work. The difference is that the kernel has to allocate space in a more dynamic manner. The number of running processes sometimes comes to tens of thousands and amount of memory is usually limited. Therefore, Linux kernel must handle the memory efficiently. In this section, we describe the Linux memory architecture, address layout, and how Linux manages memory space efficiently.
+To execute a process, the Linux kernel allocates a portion of the memory area to the requesting process. 
+The process uses the memory area as workspace and performs the required work. 
+
+The kernel has to allocate space in a more dynamic manner. The number of running processes sometimes comes to tens of thousands and amount of memory is usually limited. Therefore, Linux kernel must handle the memory efficiently.
 
 1.2.1 Physical and virtual memory
 
-Today we are faced with the choice of 32-bit systems and 64-bit systems. One of the most important differences for enterprise-class clients is the possibility of virtual memory addressing above 4 GB. From a performance point of view, it is interesting to understand how the Linux kernel maps physical memory into virtual memory on both 32-bit and 64-bit systems.
+From a performance point of view, it is interesting to understand how the Linux kernel maps physical memory into virtual memory on both 32-bit and 64-bit systems.
 
-As you can see in Figure 1-10 on page 11, there are obvious differences in the way the Linux kernel has to address memory in 32-bit and 64-bit systems. Exploring the physical-to-virtual mapping in detail is beyond the scope of this paper, so we highlight some specifics in the Linux memory architecture.
+As you can see in Figure 1-10 on page 11, there are obvious differences in the way the Linux kernel has to address memory in 32-bit and 64-bit systems. Exploring the physical-to-virtual mapping in detail is beyond the scope of this article, so we highlight some specifics in the Linux memory architecture.
 
 On 32-bit architectures such as the IA-32, the Linux kernel can directly address only the first gigabyte of physical memory (896 MB when considering the reserved range). Memory above the so-called ZONE_NORMAL must be mapped into the lower 1 GB. This mapping is completely transparent to applications, but allocating a memory page in ZONE_HIGHMEM causes a small performance degradation.
 
