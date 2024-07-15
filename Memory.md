@@ -35,7 +35,7 @@ On the other hand, on 64-bit architecture such as x86_64 and ia64, no such restr
 
 ## 1.2.2 Virtual memory manager
 
-The physical memory architecture of an operating system is usually hidden to the application and the user because operating systems map any memory into virtual memory. If we want to understand the tuning possibilities within the Linux operating system, we have to understand how Linux handles virtual memory. As explained in 1.2.1, “Physical and virtual memory” on page 10, applications do not allocate physical memory, but request a memory map of a certain size at the Linux kernel and in exchange receive a map in virtual memory. As you can see in Figure 1-12, virtual memory does not necessarily have to be mapped into physical memory. If your application allocates a large amount of memory, some of it might be mapped to the swap file on the disk subsystem.
+The physical memory architecture of an operating system is usually hidden to the application and the user because operating systems map any memory into virtual memory. If we want to understand the tuning possibilities within the Linux operating system, we have to understand how Linux handles virtual memory. As explained in 1.2.1, “Physical and virtual memory”, applications do not allocate physical memory, but request a memory map of a certain size at the Linux kernel and in exchange receive a map in virtual memory. As you can see in Figure 1-12, virtual memory does not necessarily have to be mapped into physical memory. If your application allocates a large amount of memory, some of it might be mapped to the swap file on the disk subsystem.
 
 Figure 1-12 shows that applications usually do not write directly to the disk subsystem, but into cache or buffers. The pdflush kernel threads then flushes out data in cache/buffers to the disk when it has time to do so or if a file size exceeds the buffer cache. Refer to “Flushing a dirty buffer” on page 22.
 
@@ -46,7 +46,7 @@ Figure 1-12 shows that applications usually do not write directly to the disk su
 
 Closely connected to the way the Linux kernel handles writes to the physical disk subsystem is the way the Linux kernel manages disk cache. While other operating systems allocate only a certain portion of memory as disk cache, Linux handles the memory resource far more efficiently. The default configuration of the virtual memory manager allocates all available free memory space as disk cache. Hence it is not unusual to see productive Linux systems that boast gigabytes of memory but only have 20 MB of that memory free.
 
-In the same context, Linux also handles swap space very efficiently. Swap space being used does not indicate a memory bottleneck but proves how efficiently Linux handles system resources. See “Page frame reclaiming” on page 14 for more detail.
+In the same context, Linux also handles swap space very efficiently. Swap space being used does not indicate a memory bottleneck but proves how efficiently Linux handles system resources. See “Page frame reclaiming” for more detail.
 
 ## Page frame allocation
 
@@ -59,9 +59,9 @@ The Linux kernel maintains its free pages by using a mechanism called a buddy sy
 ![image](https://github.com/vishnu-prasadtv/core-linux/assets/175235558/a025eceb-56e9-4f4c-aec6-e13c41d799e2)
 
 
-When the attempt of pages allocation fails, the page reclaiming is activated. Refer to “Page frame reclaiming” on page 14.
+When the attempt of pages allocation fails, the page reclaiming is activated. Refer to “Page frame reclaiming”.
 
-You can find information on the buddy system through /proc/buddyinfo. For details, refer to “Memory used in a zone” on page 47.
+You can find information on the buddy system through /proc/buddyinfo. For details, refer to “Memory used in a zone”.
 
 ## Page frame reclaiming
 
